@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: learndev-service
+  namespace: learndev
+  labels:
+    app: learndev
+spec:
+  type: ClusterIP
+  selector:
+    app: learndev
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
