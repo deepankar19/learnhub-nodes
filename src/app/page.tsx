@@ -17,7 +17,7 @@ export default function HomePage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           <div className="max-w-2xl">
             <span className="inline-block px-3 py-1 bg-blue-700/50 text-blue-200 text-xs font-medium rounded-full mb-4 border border-blue-600/30">
-              New courses added every week
+              New courses added every week 
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
               Learn without{" "}
