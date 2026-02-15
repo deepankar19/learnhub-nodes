@@ -60,15 +60,28 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
 
-      - name: Verify SSH connection
+      - name: Verify SSH & Kind cluster
         run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${{ env.EC2_USER }}@${{ secrets.EC2_HOST }} "
-            export KUBECONFIG=/home/${{ env.EC2_USER }}/.kube/config
-            echo 'SSH connection successful'
-            echo \"KUBECONFIG=\$KUBECONFIG\"
-            ls -la \$KUBECONFIG || echo 'WARNING: kubeconfig file not found!'
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${{ env.EC2_USER }}@${{ secrets.EC2_HOST }} '
+            set -e
+            echo "=== SSH connection successful ==="
+
+            echo "=== Checking Docker ==="
+            docker ps --format "table {{.Names}}\t{{.Status}}" || { echo "ERROR: Docker not running!"; exit 1; }
+
+            echo "=== Checking Kind ==="
+            kind get clusters 2>/dev/null || { echo "ERROR: kind not found or no clusters!"; exit 1; }
+
+            echo "=== Ensuring kubeconfig exists ==="
+            mkdir -p $HOME/.kube
+            kind get kubeconfig > $HOME/.kube/config 2>/dev/null
+            chmod 600 $HOME/.kube/config
+            export KUBECONFIG=$HOME/.kube/config
+
+            echo "=== Verifying cluster access ==="
+            kubectl cluster-info
             kubectl get nodes
-          "
+          '
 
       - name: Copy k8s manifests to EC2
         run: |
@@ -77,41 +90,34 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${{ env.EC2_USER }}@${{ secrets.EC2_HOST }} "
-            set -e
-            export KUBECONFIG=/home/${{ env.EC2_USER }}/.kube/config
-
-            DEPLOY_DIR=/home/${{ env.EC2_USER }}/learndev-deploy
-            DOCKER_IMAGE=${{ env.DOCKER_IMAGE }}
-            IMAGE_TAG=${{ env.IMAGE_TAG }}
-
-            echo '=== Updating image in deployment manifest ==='
-            sed -i \"s|DOCKER_USERNAME/learndev:latest|\${DOCKER_IMAGE}:\${IMAGE_TAG}|g\" \${DEPLOY_DIR}/k8s/deployment.yaml
-
-            echo '=== Applying Kubernetes manifests ==='
-            kubectl apply -f \${DEPLOY_DIR}/k8s/namespace.yaml  
-            kubectl apply -f \${DEPLOY_DIR}/k8s/deployment.yaml
-            kubectl apply -f \${DEPLOY_DIR}/k8s/service.yaml
-            kubectl apply -f \${DEPLOY_DIR}/k8s/gateway-configmap.yaml
-            kubectl apply -f \${DEPLOY_DIR}/k8s/gateway-deployment.yaml
-            kubectl apply -f \${DEPLOY_DIR}/k8s/gateway-service.yaml
-
-            echo '=== Restarting gateway to pick up config changes ==='
-            kubectl rollout restart deployment/gateway -n learndev
-
-            echo '=== Waiting for rollout to complete ==='
-            kubectl rollout status deployment/learndev-app -n learndev --timeout=120s
-            kubectl rollout status deployment/gateway -n learndev --timeout=120s
-
-            echo '=== Deployment Status ==='
-            kubectl get pods -n learndev
-            kubectl get svc -n learndev
-
-            echo '=== Cleanup ==='
-            rm -rf \${DEPLOY_DIR}
-
-            echo '=== Deployment complete! ==='
-          "
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${{ env.EC2_USER }}@${{ secrets.EC2_HOST }} \
+            "set -e && \
+            mkdir -p \$HOME/.kube && \
+            kind get kubeconfig > \$HOME/.kube/config 2>/dev/null && \
+            export KUBECONFIG=\$HOME/.kube/config && \
+            DEPLOY_DIR=/home/${{ env.EC2_USER }}/learndev-deploy && \
+            DOCKER_IMAGE=${{ env.DOCKER_IMAGE }} && \
+            IMAGE_TAG=${{ env.IMAGE_TAG }} && \
+            echo '=== Updating image in deployment manifest ===' && \
+            sed -i \"s|DOCKER_USERNAME/learndev:latest|\${DOCKER_IMAGE}:\${IMAGE_TAG}|g\" \${DEPLOY_DIR}/k8s/deployment.yaml && \
+            echo '=== Applying Kubernetes manifests ===' && \
+            kubectl apply -f \${DEPLOY_DIR}/k8s/namespace.yaml && \
+            kubectl apply -f \${DEPLOY_DIR}/k8s/deployment.yaml && \
+            kubectl apply -f \${DEPLOY_DIR}/k8s/service.yaml && \
+            kubectl apply -f \${DEPLOY_DIR}/k8s/gateway-configmap.yaml && \
+            kubectl apply -f \${DEPLOY_DIR}/k8s/gateway-deployment.yaml && \
+            kubectl apply -f \${DEPLOY_DIR}/k8s/gateway-service.yaml && \
+            echo '=== Restarting gateway to pick up config changes ===' && \
+            kubectl rollout restart deployment/gateway -n learndev && \
+            echo '=== Waiting for rollout to complete ===' && \
+            kubectl rollout status deployment/learndev-app -n learndev --timeout=120s && \
+            kubectl rollout status deployment/gateway -n learndev --timeout=120s && \
+            echo '=== Deployment Status ===' && \
+            kubectl get pods -n learndev && \
+            kubectl get svc -n learndev && \
+            echo '=== Cleanup ===' && \
+            rm -rf \${DEPLOY_DIR} && \
+            echo '=== Deployment complete! ==='"
 
       - name: Cleanup SSH Key
         if: always()
