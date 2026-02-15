@@ -9,7 +9,7 @@ export default function CartPage() {
 
   const removeItem = (id: number) => {
     setCartItems(cartItems.filter((item) => item.id !== id));
-  };
+  };   
 
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
   const totalOriginalPrice = cartItems.reduce((sum, item) => sum + item.originalPrice, 0);
@@ -17,7 +17,7 @@ export default function CartPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Shopping Cart</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Shopping Cart </h1>
         <p className="text-gray-600 mb-8">
           {cartItems.length} {cartItems.length === 1 ? "Course" : "Courses"} in Cart
         </p>
