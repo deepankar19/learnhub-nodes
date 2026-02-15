@@ -8,7 +8,7 @@ on:
 
 env:
   DOCKER_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/learndev
-  IMAGE_TAG: ${{ github.sha }}
+  IMAGE_TAG: ${{ github.run_number }}
   EC2_USER: ubuntu
 
 jobs:
