@@ -73,8 +73,10 @@ jobs:
             kind get clusters 2>/dev/null || { echo "ERROR: kind not found or no clusters!"; exit 1; }
 
             echo "=== Ensuring kubeconfig exists ==="
+            CLUSTER_NAME=$(kind get clusters | head -n 1)
+            echo "Using kind cluster: $CLUSTER_NAME"
             mkdir -p $HOME/.kube
-            kind get kubeconfig > $HOME/.kube/config 2>/dev/null
+            kind get kubeconfig --name "$CLUSTER_NAME" > $HOME/.kube/config
             chmod 600 $HOME/.kube/config
             export KUBECONFIG=$HOME/.kube/config
 
@@ -92,8 +94,9 @@ jobs:
         run: |
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${{ env.EC2_USER }}@${{ secrets.EC2_HOST }} \
             "set -e && \
+            CLUSTER_NAME=\$(kind get clusters | head -n 1) && \
             mkdir -p \$HOME/.kube && \
-            kind get kubeconfig > \$HOME/.kube/config 2>/dev/null && \
+            kind get kubeconfig --name \$CLUSTER_NAME > \$HOME/.kube/config && \
             export KUBECONFIG=\$HOME/.kube/config && \
             DEPLOY_DIR=/home/${{ env.EC2_USER }}/learndev-deploy && \
             DOCKER_IMAGE=${{ env.DOCKER_IMAGE }} && \
