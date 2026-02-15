@@ -105,16 +105,14 @@ jobs:
             sed -i \"s|DOCKER_USERNAME/learndev:latest|\${DOCKER_IMAGE}:\${IMAGE_TAG}|g\" \${DEPLOY_DIR}/k8s/deployment.yaml && \
             echo '=== Applying Kubernetes manifests ===' && \
             kubectl apply -f \${DEPLOY_DIR}/k8s/namespace.yaml && \
-            kubectl apply -f \${DEPLOY_DIR}/k8s/deployment.yaml && \
             kubectl apply -f \${DEPLOY_DIR}/k8s/service.yaml && \
             kubectl apply -f \${DEPLOY_DIR}/k8s/gateway-configmap.yaml && \
-            kubectl apply -f \${DEPLOY_DIR}/k8s/gateway-deployment.yaml && \
             kubectl apply -f \${DEPLOY_DIR}/k8s/gateway-service.yaml && \
-            echo '=== Restarting gateway to pick up config changes ===' && \
-            kubectl rollout restart deployment/gateway -n learndev && \
+            kubectl apply -f \${DEPLOY_DIR}/k8s/deployment.yaml && \
+            kubectl apply -f \${DEPLOY_DIR}/k8s/gateway-deployment.yaml && \
             echo '=== Waiting for rollout to complete ===' && \
-            kubectl rollout status deployment/learndev-app -n learndev --timeout=120s && \
-            kubectl rollout status deployment/gateway -n learndev --timeout=120s && \
+            kubectl rollout status deployment/learndev-app -n learndev --timeout=180s && \
+            kubectl rollout status deployment/gateway -n learndev --timeout=180s && \
             echo '=== Deployment Status ===' && \
             kubectl get pods -n learndev && \
             kubectl get svc -n learndev && \
