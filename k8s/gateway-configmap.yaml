@@ -9,10 +9,9 @@ data:
             server learndev-service.learndev.svc.cluster.local:80;
         }
 
-        upstream django-notes-service {
+        upstream django-notes {
             server django-notes-service.learndev.svc.cluster.local:80;
         }
-
 
         server {
             listen 80;
@@ -23,12 +22,13 @@ data:
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
 
-            # learndev app at /
-            location /learndev {
+            # learndev app
+            location / {
                 proxy_pass http://learndev;
             }
 
-            location / {
-                proxy_pass http://django-notes-service;
+            # django-notes app (FIXED)
+            location /django-notes/ {
+                proxy_pass http://django-notes/;
             }
         }
