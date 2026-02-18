@@ -10,9 +10,9 @@ data:
         }
 
          
-        upstream ecommerce {
-            server ecommerce-service.learndev.svc.cluster.local:80;
-        }
+        # upstream ecommerce {
+        #     server ecommerce-service.learndev.svc.cluster.local:80;
+        # }
 
         upstream django-notes-service {
             server django-notes-service-service.learndev.svc.cluster.local:80;
@@ -39,9 +39,9 @@ data:
             # upstream ecommerce {
             #     server ecommerce-service.learndev.svc.cluster.local:80;
             # }
-            location /ecommerce {
-                proxy_pass http://ecommerce;
-            }
+            # location /ecommerce {
+            #     proxy_pass http://ecommerce;
+            # }
 
             location /django-notes {
                 proxy_pass http://django-notes-service;
