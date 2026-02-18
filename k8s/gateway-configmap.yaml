@@ -9,9 +9,9 @@ data:
             server learndev-service.learndev.svc.cluster.local:80;
         }
 
-        upstream django-notes-service {
-            server django-notes-service.learndev.svc.cluster.local:80;
-        }
+        # upstream django-notes-service {
+        #     server django-notes-service.learndev.svc.cluster.local:80;
+        # }
 
 
         server {
@@ -28,7 +28,7 @@ data:
                 proxy_pass http://learndev;
             }
 
-            location /django-notes {
-                proxy_pass http://django-notes-service;
-            }
+            # location /django-notes {
+            #     proxy_pass http://django-notes-service;
+            # }
         }
