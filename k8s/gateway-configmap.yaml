@@ -9,11 +9,6 @@ data:
             server learndev-service.learndev.svc.cluster.local:80;
         }
 
-         
-        upstream ecommerce {
-            server ecommerce-service.learndev.svc.cluster.local:80;
-        }
-
         upstream django-notes-service {
             server django-notes-service-service.learndev.svc.cluster.local:80;
         }
@@ -31,16 +26,6 @@ data:
             # learndev app at /
             location / {
                 proxy_pass http://learndev;
-            }
-
-            # Add ecommerce upstream and location block here once
-            # ecommerce-service is deployed to the cluster:
-            
-            # upstream ecommerce {
-            #     server ecommerce-service.learndev.svc.cluster.local:80;
-            # }
-            location /ecommerce {
-                proxy_pass http://ecommerce;
             }
 
             location /django-notes {
