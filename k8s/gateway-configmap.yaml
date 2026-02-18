@@ -10,7 +10,6 @@ data:
         }
 
         upstream django-notes-service {
-            server django-notes-service-service.learndev.svc.cluster.local:80;
         }
 
 
