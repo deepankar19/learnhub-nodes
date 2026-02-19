@@ -9,39 +9,27 @@ data:
             server learndev-service.learndev.svc.cluster.local:80;
         }
 
-        # upstream django-notes {
-        #     server django-notes-service.learndev.svc.cluster.local:80;
-        # }
-
         upstream ecommerce {
-            server ecommerce-service.learnhub.svc.cluster.local:80;
+            server ecommerce-service.learndev.svc.cluster.local:80;
         }
 
-        upstream ecommerce {
-            server ecommerce-service.learnhub.svc.cluster.local:80;
-        }
+            server {
+                listen 80;
+                server_name _;
 
-        server {
-            listen 80;
-            server_name _;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
 
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-
-            # learndev app
-            location / {
-                proxy_pass http://learndev;
+                # Ecommerce app at /ecommerce (must be before / to match first)
+                location /ecommerce {
+                    proxy_pass http://ecommerce;
+                }  
+                
+                
+                # LearnHub app at /
+                location / {
+                    proxy_pass http://learnhub;
+                }
             }
-
-            # Ecommerce app at /ecommerce (must be before / to match first)
-            location /ecommerce {
-                proxy_pass http://ecommerce;
-            }  
-            
-            # django-notes app (FIXED)
-            # location /django-notes/ {
-            #     proxy_pass http://django-notes/;
-            # }
-        }
