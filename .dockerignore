@@ -7,5 +7,4 @@ node_modules
 .vscode
 .idea
 Dockerfile
-.dockerignore  
-  
+.dockerignore

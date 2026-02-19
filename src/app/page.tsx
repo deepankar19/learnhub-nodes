@@ -9,15 +9,15 @@ export default function HomePage() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-blue-400 rounded-full blur-3xl" />
+          <div className="absolute top-10 left-10 w-72 h-72 bg-purple-400 rounded-full blur-3xl" />
           <div className="absolute bottom-10 right-10 w-96 h-96 bg-indigo-400 rounded-full blur-3xl" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
           <div className="max-w-2xl">
-            <span className="inline-block px-3 py-1 bg-blue-700/50 text-blue-200 text-xs font-medium rounded-full mb-4 border border-blue-600/30">
-              New courses added every week 
+            <span className="inline-block px-3 py-1 bg-purple-700/50 text-purple-200 text-xs font-medium rounded-full mb-4 border border-purple-600/30">
+              New courses added every week
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
               Learn without{" "}
@@ -25,14 +25,14 @@ export default function HomePage() {
                 limits
               </span>
             </h1>
-            <p className="text-lg text-blue-200 mb-8 leading-relaxed">
+            <p className="text-lg text-purple-200 mb-8 leading-relaxed">
               Start, switch, or advance your career with over 5,000 courses from world-class
               instructors. Gain in-demand skills at your own pace.
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link
                 href="/courses"
-                className="inline-flex items-center justify-center px-6 py-3 bg-white text-blue-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
+                className="inline-flex items-center justify-center px-6 py-3 bg-white text-purple-900 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
               >
                 Explore Courses
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,7 +41,7 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/about"
-                className="inline-flex items-center justify-center px-6 py-3 border border-blue-400 text-blue-100 font-semibold rounded-lg hover:bg-blue-800/50 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 border border-purple-400 text-purple-100 font-semibold rounded-lg hover:bg-purple-800/50 transition-colors"
               >
                 Learn More
               </Link>
@@ -55,19 +55,19 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-blue-600">5,000+</div>
+              <div className="text-2xl md:text-3xl font-bold text-purple-600">5,000+</div>
               <div className="text-sm text-gray-600 mt-1">Courses</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-blue-600">10M+</div>
+              <div className="text-2xl md:text-3xl font-bold text-purple-600">10M+</div>
               <div className="text-sm text-gray-600 mt-1">Students</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-blue-600">500+</div>
+              <div className="text-2xl md:text-3xl font-bold text-purple-600">500+</div>
               <div className="text-sm text-gray-600 mt-1">Expert Instructors</div>
             </div>
             <div>
-              <div className="text-2xl md:text-3xl font-bold text-blue-600">4.7</div>
+              <div className="text-2xl md:text-3xl font-bold text-purple-600">4.7</div>
               <div className="text-sm text-gray-600 mt-1">Average Rating</div>
             </div>
           </div>
@@ -94,14 +94,14 @@ export default function HomePage() {
               <Link
                 key={category}
                 href={`/courses?category=${encodeURIComponent(category)}`}
-                className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all group"
+                className="flex items-center gap-3 p-4 bg-white border border-gray-200 rounded-xl hover:border-purple-300 hover:shadow-md transition-all group"
               >
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-blue-200 transition-colors">
-                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-purple-200 transition-colors">
+                  <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={icons[category] || icons["Web Development"]} />
                   </svg>
                 </div>
-                <span className="text-sm font-medium text-gray-800 group-hover:text-blue-600 transition-colors">
+                <span className="text-sm font-medium text-gray-800 group-hover:text-purple-600 transition-colors">
                   {category}
                 </span>
               </Link>
@@ -120,7 +120,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/courses"
-              className="hidden sm:inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+              className="hidden sm:inline-flex items-center gap-1 text-sm font-medium text-purple-600 hover:text-purple-700 transition-colors"
             >
               View all
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -145,7 +145,7 @@ export default function HomePage() {
           </div>
           <Link
             href="/courses"
-            className="hidden sm:inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+            className="hidden sm:inline-flex items-center gap-1 text-sm font-medium text-purple-600 hover:text-purple-700 transition-colors"
           >
             View all
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -161,17 +161,17 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-600">
+      <section className="bg-gradient-to-r from-purple-600 to-indigo-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Start learning today
           </h2>
-          <p className="text-blue-200 text-lg mb-8 max-w-xl mx-auto">
+          <p className="text-purple-200 text-lg mb-8 max-w-xl mx-auto">
             Join millions of learners worldwide. Get unlimited access to thousands of courses.
           </p>
           <Link
             href="/courses"
-            className="inline-flex items-center px-8 py-3.5 bg-white text-blue-700 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
+            className="inline-flex items-center px-8 py-3.5 bg-white text-purple-700 font-semibold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
           >
             Get Started for Free
           </Link>

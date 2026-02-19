@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "learndev - Online Courses & Learning",
+  title: "LearnHub - Online Courses & Learning",
   description: "Learn anything, anywhere. Thousands of courses from expert instructors.",
 };
 
