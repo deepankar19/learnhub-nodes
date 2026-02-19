@@ -22,7 +22,7 @@ export default function AboutPage() {
           </h1>
           <p className="text-lg text-blue-200 max-w-2xl mx-auto leading-relaxed">
             We&apos;re on a mission to make quality education accessible to everyone, everywhere. ppp
-            Learn new skills, advance your career, and explore new hobbies with expert-led courses.
+            Learn new skills, advance your career, and explore new hobbies with   expert-led courses.
           </p>
         </div>
       </section>
