@@ -9,8 +9,12 @@ data:
             server learndev-service.learndev.svc.cluster.local:80;
         }
 
-        upstream django-notes {
-            server django-notes-service.learndev.svc.cluster.local:80;
+        # upstream django-notes {
+        #     server django-notes-service.learndev.svc.cluster.local:80;
+        # }
+
+        upstream ecommerce {
+            server ecommerce-service.learnhub.svc.cluster.local:80;
         }
 
         server {
@@ -27,8 +31,13 @@ data:
                 proxy_pass http://learndev;
             }
 
+            # Ecommerce app at /ecommerce (must be before / to match first)
+            location /ecommerce {
+                proxy_pass http://ecommerce;
+            }  
+            
             # django-notes app (FIXED)
-            location /django-notes/ {
-                proxy_pass http://django-notes/;
-            }
+            # location /django-notes/ {
+            #     proxy_pass http://django-notes/;
+            # }
         }
