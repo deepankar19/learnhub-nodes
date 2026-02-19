@@ -17,6 +17,10 @@ data:
             server ecommerce-service.learnhub.svc.cluster.local:80;
         }
 
+        upstream ecommerce {
+            server ecommerce-service.learnhub.svc.cluster.local:80;
+        }
+
         server {
             listen 80;
             server_name _;
