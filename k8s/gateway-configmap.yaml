@@ -9,9 +9,9 @@ data:
         server learnhub-service.learnhub.svc.cluster.local:80;
     }
 
-    upstream ecommerce {
-        server ecommerce-service.learnhub.svc.cluster.local:80;
-    }
+    # upstream ecommerce {
+    #     server ecommerce-service.learnhub.svc.cluster.local:80;
+    # }
 
     server {
         listen 80;
@@ -23,9 +23,9 @@ data:
         proxy_set_header X-Forwarded-Proto $scheme;
 
         # Ecommerce app at /ecommerce (must be before / to match first)
-        location /ecommerce {
-            proxy_pass http://ecommerce;
-        }
+        # location /ecommerce {
+        #     proxy_pass http://ecommerce;
+        # }
 
         # LearnHub app at /
         location / {
