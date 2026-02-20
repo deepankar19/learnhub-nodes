@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: learnhub
-          image: DOCKER_USERNAME/learnhub:latest
+          image: DOCKERHUB_USERNAME/learnhub:latest
           ports:
             - containerPort: 3000
               protocol: TCP
