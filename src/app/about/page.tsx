@@ -33,7 +33,7 @@ export default function AboutPage() {
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Story</h2>
             <p className="text-gray-600 mb-4 leading-relaxed">
-              Founded in 2020, LearnHub started with a simple idea: everyone deserves access to
+              Founded in 2020, LearnHub started with a simple idea: dd everyone deserves access to
               world-class education, regardless of where they live or their financial situation.
             </p>
             <p className="text-gray-600 mb-4 leading-relaxed">
